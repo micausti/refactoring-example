@@ -1,6 +1,6 @@
 package com.refactor
 
-class Subtotal {
+case class Cart(customer: Customer) {
 
   //pricing
   val REGULAR_PRICE = 2.0
@@ -13,12 +13,14 @@ class Subtotal {
   val CHILDRENS_DISCOUNT_THRESHOLD = 3
   val CHILDRENS_DISCOUNT_MULTIPLIER = 1.5
 
-    def calculateCartTotal(customer:Customer) = {
-    customer.rentals.map(_.movie.priceCode).map {
-      case p@Regular => regularSubtotal(p)
-      case p@NewRelease => newReleaseSubtotal(p)
-      case p@Childrens => childrensSubtotal(p)
+    def calculate():Double = {
+      customer.rentals.map(_.movie.priceCode).map {
+        case p@Regular => regularSubtotal(p)
+        case p@NewRelease => newReleaseSubtotal(p)
+        case p@Childrens => childrensSubtotal(p)
+      }.sum
     }
+
     def regularSubtotal(code: PriceCode): Double = {
       customer.rentals.map(_.daysRented).map{ d =>
         if (d > REGULAR_DISCOUNT_THRESHOLD) (d - REGULAR_DISCOUNT_THRESHOLD) * REGULAR_DISCOUNT_MULTIPLIER + REGULAR_PRICE

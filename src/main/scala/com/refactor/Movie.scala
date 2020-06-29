@@ -10,3 +10,4 @@ case class Movie(title: String, priceCode: PriceCode)
 case class Rental(movie: Movie, daysRented: Int)
 
 case class Customer(name: String, rentals: List[Rental])
+
