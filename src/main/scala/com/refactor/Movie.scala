@@ -9,5 +9,10 @@ case class Movie(title: String, priceCode: PriceCode)
 
 case class Rental(movie: Movie, daysRented: Int)
 
-case class Customer(name: String, rentals: List[Rental])
+case class Customer(name: String, rentals: List[Rental]) {
+
+  def titleWithPriceCode(): Map[String, PriceCode] = {
+    (rentals.map(r => r.movie.title) zip rentals.map(r => r.movie.priceCode)).toMap
+  }
+}
 
